@@ -1,14 +1,14 @@
 import UserModel from "../models/UserModel.js";
 import { Webhook } from "svix";
 
-const clerkWebHook = async () => {
+const clerkWebHook = async (req, res) => {
     try {
 
         const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
         //   getting headers    
         const headers = {
-            "svix_id": req.headers["svix_id"],
+            "svix-id": req.headers["svix-id"],
             "svix-timestamp": req.headers["svix-timestamp"],
             "svix-signature": req.headers["svix-signature"],
         }
@@ -28,15 +28,15 @@ const clerkWebHook = async () => {
 
         // using switch case
         switch (type) {
-            case "user.create": {
+            case "user.created": {
                 await UserModel.create(userData);
                 break;
             }
-            case "user.update": {
+            case "user.updated": {
                 await UserModel.findByIdAndUpdate(data.id, userData);
                 break;
             }
-            case "user.delete": {
+            case "user.deleted": {
                 await UserModel.findByIdAndDelete(data.id);
                 break;
             }
