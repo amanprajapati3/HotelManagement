@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&family=Poppins:wght@400;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+a.active p{
+   border-bottom: 3px solid orange;
+   color: rgb(4, 247, 255);
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.font-playfair{
+  font-family: Playfair !important;
+}
+@theme{
+  --color-primary: #2563EB;
+  --color-secondary: #FBBE24;
+}
