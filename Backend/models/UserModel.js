@@ -6,9 +6,9 @@ const User_schema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     image: { type: String, required: true },
     role: { type: String, enum: ["user", "hotelowner"], default: "user" },
-    recentSearchCity: [{ type: String, required: true }]
-}, { timestamps: true });  
+    recentSearchCity: { type: [String], default: [] }
+}, { timestamps: true });
 
-const UserModel = mongoose.models.HotelUsers || mongoose.model("HotelUsers", User_schema);  
+const UserModel = mongoose.models.HotelUsers || mongoose.model("HotelUsers", User_schema);
 
 export default UserModel;

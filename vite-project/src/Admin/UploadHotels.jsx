@@ -3,11 +3,32 @@ import { assets } from "../quickStay-assets/assets/assets";
 
 const UploadHotels = () => {
   const [images, setImages] = useState([null, null, null, null]);
+  const [input, setInput] = useState({
+    roomType: '',
+    pricePerNight: 0,
+    amenities: {
+      "Free WiFi": false,
+      "Free Breakfast": false,
+      "Room Service": false,
+      "Mountain View": false,
+      "Pool Access": false,
+    }
+  });
 
   const handleImageChange = (index, file) => {
     const updatedImages = [...images];
     updatedImages[index] = file;
     setImages(updatedImages);
+  };
+
+  const handleAmenityChange = (amenity) => {
+    setInput((prev) => ({
+      ...prev,
+      amenities: {
+        ...prev.amenities,
+        [amenity]: !prev.amenities[amenity], // toggle the checkbox state
+      },
+    }));
   };
 
   return (
@@ -46,6 +67,8 @@ const UploadHotels = () => {
                 <p className="font-medium">Room Type</p>
                 <select
                   required
+                  value={input.roomType}
+                  onChange={(e) => setInput({ ...input, roomType: e.target.value })}
                   className="mt-2 border border-gray-400 px-5 py-2 rounded-md text-gray-800 outline-none focus:border-gray-500"
                 >
                   <option value="">Select Room Type</option>
@@ -57,6 +80,8 @@ const UploadHotels = () => {
                 <p className="font-medium">Price/night</p>
                 <input
                   required
+                  value={input.pricePerNight}
+                  onChange={(e) => setInput({ ...input, pricePerNight: e.target.value })}
                   type="number"
                   placeholder="0"
                   className="outline-none rounded-md py-1.5 w-[120px] px-3 border border-gray-400 mt-2 focus:border-gray-500"
@@ -64,12 +89,16 @@ const UploadHotels = () => {
               </div>
             </div>
 
-            {/* Amenities */}
             <div className="mt-5">
               <h1 className="font-medium pb-2">Amenities</h1>
-              {["Free WiFi", "Free Breakfast", "Room Service", "Mountain View", "Pool Access"].map((amenity, index) => (
+              {Object.keys(input.amenities).map((amenity, index) => (
                 <div key={index}>
-                  <input type="checkbox" value={amenity} className="check" />
+                  <input
+                    type="checkbox"
+                    checked={input.amenities[amenity]} 
+                    onChange={() => handleAmenityChange(amenity)} 
+                    className="check"
+                  />
                   <span className="ml-2 text-sm text-gray-700">{amenity}</span>
                 </div>
               ))}
