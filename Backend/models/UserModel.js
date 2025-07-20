@@ -9,6 +9,6 @@ const User_schema = new mongoose.Schema({
     recentSearchCity: { type: [String], default: [] }
 }, { timestamps: true });
 
-const UserModel = mongoose.models.HotelUsers || mongoose.model("HotelUsers", User_schema);
+const UserModel = mongoose.model.HotelUsers || mongoose.model("HotelUsers", User_schema);
 
 export default UserModel;
